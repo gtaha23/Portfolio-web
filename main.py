@@ -10,6 +10,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+class Feedback(db.Model):
+    email = db.Column(db.String(35), nullable=True)
+    text = db.Column(db.Text, nullable=True)
+
+    def __repr__(self):
+        return f'<Feedback {self.text}'
+
 # İçerik sayfasını çalıştırma
 @app.route('/')
 def index():
@@ -28,13 +35,6 @@ def process_form():
                            button_html=button_html,
                            button_db=button_db
                            )
-
-class Feedback(db.Model):
-    email = db.Column(db.String(35), nullable=False)
-    text = db.Column(db.String(100), nullable=True)
-
-    def _repr_(self):
-        return f'<Feedback {self.text}'
 
 
 if __name__ == "__main__":
